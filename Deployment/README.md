@@ -1,67 +1,66 @@
-# Keyword Spotting on Arm Cortex-M boards.
-The first step in deploying the trained keyword spotting models on microcontrollers is quantization, which is described [here](Quant_guide.md). This directory consists of example codes and steps for running a quantized DNN model on any Cortex-M board using [mbed-cli](https://github.com/ARMmbed/mbed-cli) and [CMSIS-NN](https://github.com/ARM-software/CMSIS_5) library. It also consists of an example of integration of the KWS model onto a Cortex-M development board with an on-board microphone to demonstrate keyword spotting on live audio data. 
+#Army Cortex-M板上的关键字定位。
+在微控制器上部署经过训练的关键字定位模型的第一步是量化，这里描述了[Quant]（CV_guide.md）。该目录包含示例代码和使用[mbed-cli]（https://github.com/ARMmbed/mbed-cli）和[CMSIS-NN]在任何Cortex-M板上运行量化DNN模型的步骤（https： //github.com/ARM-software/CMSIS_5）库。它还包括将KWS模型集成到带有板载麦克风的Cortex-M开发板上的示例，以演示实时音频数据上的关键字定位。
 
-## Get the CMSIS-NN library and install mbed-cli
-Clone [CMSIS-5](https://github.com/ARM-software/CMSIS_5) library, which consists of the optimized neural network kernels for Cortex-M.
-```bash
-cd Deployment
+##获取CMSIS-NN库并安装mbed-cli
+克隆[CMSIS-5]（https://github.com/ARM-software/CMSIS_5）库，它包含Cortex-M的优化神经网络内核。
+```庆典
+cd部署
 git clone https://github.com/ARM-software/CMSIS_5.git
 ```
-Install [mbed-cli](https://github.com/ARMmbed/mbed-cli) and its python dependencies.
-```bash
+安装[mbed-cli]（https://github.com/ARMmbed/mbed-cli）及其python依赖项。
+```庆典
 pip install mbed-cli
 ```
-## Build and run a simple KWS inference 
-In this example, the KWS inference is run on the audio data provided through a .h file.
-First create a new project and install any python dependencies prompted when project is created for the first time after the installation of mbed-cli.
-```bash
-mbed new kws_simple_test --mbedlib 
+##构建并运行一个简单的KWS推理
+在此示例中，KWS推断对通过.h文件提供的音频数据运行。
+首先创建一个新项目并安装在安装mbed-cli后第一次创建项目时提示的任何python依赖项。
+```庆典
+mbed new kws_simple_test --mbedlib
 ```
-Fetch the required mbed libraries for compilation.
-```bash
+获取所需的mbed库以进行编译。
+```庆典
 cd kws_simple_test
-mbed deploy
+mbed部署
 ```
-Compile the code for the mbed board (for example NUCLEO\_F411RE).
-```bash
-mbed compile -m NUCLEO_F411RE -t GCC_ARM --source . \
-  --source ../Source/KWS --source ../Source/NN --source ../Source/MFCC \
-  --source ../Source/local_NN --source ../Examples/simple_test \
-  --source ../CMSIS_5/CMSIS/NN/Include --source ../CMSIS_5/CMSIS/NN/Source \
-  --source ../CMSIS_5/CMSIS/DSP/Include --source ../CMSIS_5/CMSIS/DSP/Source \
-  --source ../CMSIS_5/CMSIS/Core/Include \
-  --profile ../release_O3.json -j 8 
+编译mbed板的代码（例如NUCLEO \ _F411RE）。
+```庆典
+mbed compile -m NUCLEO_F411RE -t GCC_ARM --source。 \
+  --source ../Source/KWS --source ../Source/NN --source ../Source/MFCC \
+  --source ../Source/local_NN --source ../Examples/simple_test \
+  --source ../CMSIS_5/CMSIS/NN/Include --source ../CMSIS_5/CMSIS/NN/Source \
+  --source ../CMSIS_5/CMSIS/DSP/Include --source ../CMSIS_5/CMSIS/DSP/Source \
+  --source ../CMSIS_5/CMSIS/Core/Include \
+  --profile ../release_O3.json -j 8
 ```
-Copy the binary (.bin) to the board (Make sure the board is detected and mounted). Open a serial terminal (e.g. putty or minicom) and see the final classification output on screen. 
-```bash
-cp ./BUILD/NUCLEO_F411RE/GCC_ARM/kws_simple_test.bin /media/<user>/NODE_F411RE/
+将二进制文件（.bin）复制到电路板上（确保检测到并安装了电路板）。打开一个串行终端（例如putty或minicom）并在屏幕上看到最终的分类输出。
+```庆典
+cp ./BUILD/NUCLEO_F411RE/GCC_ARM/kws_simple_test.bin / media / <user> / NODE_F411RE /
 sudo minicom
 ```
-## Run KWS inference on live audio on [STM32F746NG development kit](http://www.st.com/en/evaluation-tools/32f746gdiscovery.html)
-This example runs keyword spotting inference on live audio captured using the on-board microphones on the STM32F746NG discovery kit. When performing keyword spotting on live audio data with multiple noise sources, outputs are typically averaged over a specified window to generate smooth predictions. The averaging window length and the detection threshold (which may also be different for each keyword) are two key parameters in determining the overall keyword spotting accuracy and user experience.
-```bash
-mbed new kws_realtime_test --create-only
+##在[STM32F746NG开发套件]上运行KWS对现场音频的推断（http://www.st.com/en/evaluation-tools/32f746gdiscovery.html）
+此示例在使用STM32F746NG发现套件上的板载麦克风捕获的实时音频上运行关键字定位推断。在对具有多个噪声源的实况音频数据执行关键字定位时，通常在指定窗口上对输出进行平均以生成平滑预测。平均窗口长度和检测阈值（对于每个关键字也可以是不同的）是确定整体关键字定位准确性和用户体验的两个关键参数。
+```庆典
+mbed new kws_realtime_test  - 仅限创建
 cd kws_realtime_test
-cp ../Examples/realtime_test/mbed_libs/*.lib .
-mbed deploy
+cp ../Examples/realtime_test/mbed_libs/*.lib。
+mbed部署
 mbed compile -m DISCO_F746NG -t GCC_ARM \
-  --source . --source ../Source --source ../Examples/realtime_test \
-  --source ../CMSIS_5/CMSIS/NN/Include --source ../CMSIS_5/CMSIS/NN/Source \
-  --source ../CMSIS_5/CMSIS/DSP/Include --source ../CMSIS_5/CMSIS/DSP/Source \
-  --source ../CMSIS_5/CMSIS/Core/Include \
-  --profile ../release_O3.json -j 8
-cp ./BUILD/DISCO_F746NG/GCC_ARM/kws_realtime_test.bin /media/<user>/DIS_F746NG/
+   - 资源 。 --source ../Source --source ../Examples/realtime_test \
+  --source ../CMSIS_5/CMSIS/NN/Include --source ../CMSIS_5/CMSIS/NN/Source \
+  --source ../CMSIS_5/CMSIS/DSP/Include --source ../CMSIS_5/CMSIS/DSP/Source \
+  --source ../CMSIS_5/CMSIS/Core/Include \
+  --profile ../release_O3.json -j 8
+cp ./BUILD/DISCO_F746NG/GCC_ARM/kws_realtime_test.bin / media / <user> / DIS_F746NG /
 ```
-## Build an example on [FRDM-K64F](https://os.mbed.com/platforms/FRDM-K64F/) using gcc and make
-To build this example, clone CMSIS_5 repository and then `make`. This example is created by exporting a simple hello-world example from [mbed online compiler](https://os.mbed.com/compiler/) and editing the Makefile to incorporate the source files required for the keyword spotting example. 
-```bash
-cd Deployment
-# Clone CMSIS_5 repository (if not done already)
+##使用gcc和make在[FRDM-K64F]（https://os.mbed.com/platforms/FRDM-K64F/）上构建示例
+要构建此示例，请克隆CMSIS_5存储库，然后执行`make`。此示例是通过从[mbed在线编译器]（https://os.mbed.com/compiler/）导出一个简单的hello-world示例并编辑Makefile以合并关键字定位示例所需的源文件来创建的。
+```庆典
+cd部署
+＃克隆CMSIS_5存储库（如果尚未完成）
 git clone https://github.com/ARM-software/CMSIS_5.git
-cd Examples/simple_test_k64f_gcc
+cd examples / simple_test_k64f_gcc
 make -j 8
-# copy binary to the device
-cp ./BUILD/simple_test_k64f_gcc.bin /media/<user>/DAPLINK/
+＃将二进制文件复制到设备
+cp ./BUILD/simple_test_k64f_gcc.bin / media / <user> / DAPLINK /
 ```
-**Note:** The examples provided use floating point operations for MFCC feature extraction, but it should be possible to convert them to fixed-point operations for deploying on microcontrollers that do not have dedicated floating point units.
-
+**注意：**提供的示例使用MFCC特征提取的浮点运算，但应该可以将它们转换为定点运算，以便在没有专用浮点单元的微控制器上进行部署。
