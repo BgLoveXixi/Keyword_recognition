@@ -1,10 +1,8 @@
 # 微控制器的关键字识别
 
-该存储库包含使用的tensorflow模型和训练脚本
-在论文中：
-[Hello Edge：微控制器上的关键字识别]（https://arxiv.org/pdf/1711.07128.pdf）。
-这些脚本改编自[Tensorflow示例]（https://github.com/tensorflow/tensorflow/tree/master/tensorflow/examples/speech_commands）
-为了使这些脚本自成一体，这里重复了一些。
+本项目文件夹包含使用的tensorflow模型和训练脚本
+来源于论文：[Hello Edge: Keyword spotting on Microcontrollers.]（https://arxiv.org/pdf/1711.07128.pdf）
+脚本改编自[Tensorflow示例]（https://github.com/tensorflow/tensorflow/tree/master/tensorflow/examples/speech_commands）
 
 要训练具有3个完全连接层的DNN，每层有128个神经元，请运行：
 
