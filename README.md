@@ -40,7 +40,7 @@ CNN，基本LSTM，LSTM，GRU，CRNN和DS-CNN如图所示
 [Pretrained_models]（Pretrained_models）。验证集上模型的准确性，
 他们的内存需求和每个推理的操作也总结在下表。
 
-<img src =“https://github.com/BgLoveXixi/Keyword_recognition/blob/master/.idea/model_result_info.png”>
+![image](https://github.com/BgLoveXixi/Keyword_recognition/blob/master/.idea/model_result_info.png)
 
 要通过训练模型（例如DNN）运行音频文件并获得最高预测，请运行：
 ```
