@@ -56,7 +56,7 @@ cp ./BUILD/DISCO_F746NG/GCC_ARM/kws_realtime_test.bin / media / <user> / DIS_F74
 要构建此示例，请克隆CMSIS_5存储库，然后执行`make`。此示例是通过从[mbed在线编译器]（https://os.mbed.com/compiler/）导出一个简单的hello-world示例并编辑Makefile以合并关键字定位示例所需的源文件来创建的。
 ```
 cd Deployment
-＃克隆CMSIS_5存储库（如果尚未完成）
+＃下载CMSIS_5存储库（如果没有的话）
 git clone https://github.com/ARM-software/CMSIS_5.git
 cd examples / simple_test_k64f_gcc
 make -j 8
