@@ -32,7 +32,7 @@ python freeze.py --model_architecture dnn --model_size_info 128 128 128 --checkp
 <checkpoint path> --output_file dnn.pb
 ```
 
-##预训练模型
+#########预训练模型
 
 针对不同神经网络架构（如DNN）的训练模型（.pb文件），
 CNN，基本LSTM，LSTM，GRU，CRNN和DS-CNN如图所示
@@ -40,7 +40,7 @@ CNN，基本LSTM，LSTM，GRU，CRNN和DS-CNN如图所示
 [Pretrained_models]（Pretrained_models）。验证集上模型的准确性，
 他们的内存需求和每个推理的操作也总结在下表。
 
-<img src =“https://user-images.githubusercontent.com/34459978/34018008-0451ef9a-e0dd-11e7-9661-59e4fb4a8347.png”>
+<img src =“https://github.com/BgLoveXixi/Keyword_recognition/blob/master/.idea/model_result_info.png”>
 
 要通过训练模型（例如DNN）运行音频文件并获得最高预测，请运行：
 ```
@@ -48,7 +48,7 @@ python label_wav.py --wav <audio file> --graph Pretrained_models / DNN / DNN_S.p
 --labels Pretrained_models / labels.txt --how_many_labels 1
 ```
 
-##微控制器的量化指南和部署
+###########微控制器的量化指南和部署
 
 关于量化KWS神经网络模型的快速指南是[这里]（部署/ Quant_guide.md）。
 在[此处] [部署]中还提供了在Cortex-M开发板上运行DNN模型的示例代码。
