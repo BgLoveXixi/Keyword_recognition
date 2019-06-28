@@ -50,5 +50,5 @@ python label_wav.py --wav <audio file> --graph Pretrained_models / DNN / DNN_S.p
 
 ###########微控制器的量化指南和部署
 
-关于量化KWS神经网络模型的快速指南是[这里]（部署/ Quant_guide.md）。
-在[此处] [部署]中还提供了在Cortex-M开发板上运行DNN模型的示例代码。
+关于量化KWS神经网络模型的快速指南是[Deployment/ Quant_guide.md）
+在[Deployment]中还提供了在Cortex-M开发板上运行DNN模型的示例代码。
