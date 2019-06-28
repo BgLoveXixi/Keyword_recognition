@@ -1,56 +1,56 @@
-# Keyword spotting for Microcontrollers 
+######微控制器的关键字识别
 
-This repository consists of the tensorflow models and training scripts used 
-in the paper: 
-[Hello Edge: Keyword spotting on Microcontrollers](https://arxiv.org/pdf/1711.07128.pdf). 
-The scripts are adapted from [Tensorflow examples](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/examples/speech_commands) 
-and some are repeated here for the sake of making these scripts self-contained.
+该存储库包含使用的tensorflow模型和训练脚本
+在论文中：
+[Hello Edge：微控制器上的关键字识别]（https://arxiv.org/pdf/1711.07128.pdf）。
+这些脚本改编自[Tensorflow示例]（https://github.com/tensorflow/tensorflow/tree/master/tensorflow/examples/speech_commands）
+为了使这些脚本自成一体，这里重复了一些。
 
-To train a DNN with 3 fully-connected layers with 128 neurons in each layer, run:
+要训​​练具有3个完全连接层的DNN，每层有128个神经元，请运行：
 
 ```
-python train.py --model_architecture dnn --model_size_info 128 128 128 
+python train.py --model_architecture dnn --model_size_info 128 128 128
 ```
-The command line argument *--model_size_info* is used to pass the neural network layer
-dimensions such as number of layers, convolution filter size/stride as a list to models.py, 
-which builds the tensorflow graph based on the provided model architecture 
-and layer dimensions. 
-For more info on *model_size_info* for each network architecture see 
-[models.py](models.py).
-The training commands with all the hyperparameters to reproduce the models shown in the 
-[paper](https://arxiv.org/pdf/1711.07128.pdf) are given [here](train_commands.txt).
+命令行参数*  -  model_size_info *用于传递神经网络层
+尺寸，如层数，卷积滤波器大小/步幅作为models.py的列表，
+它基于提供的模型架构构建张量流图
+和图层尺寸。
+有关每个网络体系结构的* model_size_info *的更多信息，请参阅
+[models.py]（models.py）。
+所有超参数的训练命令都可以重现所显示的模型
+[文件]（https://arxiv.org/pdf/1711.07128.pdf）给出了[here]（train_commands.txt）。
 
-To run inference on the trained model from a checkpoint on train/val/test set, run:
+要从train / val / test set上的检查点对训练模型进行推断，请运行：
 ```
-python test.py --model_architecture dnn --model_size_info 128 128 128 --checkpoint 
-<checkpoint path>
+python test.py --model_architecture dnn --model_size_info 128 128 128 --checkpoint
+<检查点路径>
 ```
 
-To freeze the trained model checkpoint into a .pb file, run:
+要将经过训练的模型检查点冻结到.pb文件中，请运行：
 ```
-python freeze.py --model_architecture dnn --model_size_info 128 128 128 --checkpoint 
+python freeze.py --model_architecture dnn --model_size_info 128 128 128 --checkpoint
 <checkpoint path> --output_file dnn.pb
 ```
 
-## Pretrained models
+##预训练模型
 
-Trained models (.pb files) for different neural network architectures such as DNN,
-CNN, Basic LSTM, LSTM, GRU, CRNN and DS-CNN shown in 
-this [arXiv paper](https://arxiv.org/pdf/1711.07128.pdf) are added in 
-[Pretrained_models](Pretrained_models). Accuracy of the models on validation set, 
-their memory requirements and operations per inference are also summarized in the 
-following table.
+针对不同神经网络架构（如DNN）的训练模型（.pb文件），
+CNN，基本LSTM，LSTM，GRU，CRNN和DS-CNN如图所示
+这[arXiv paper]（https://arxiv.org/pdf/1711.07128.pdf）已添加进来
+[Pretrained_models]（Pretrained_models）。验证集上模型的准确性，
+他们的内存需求和每个推理的操作也总结在
+下表。
 
-<img src="https://user-images.githubusercontent.com/34459978/34018008-0451ef9a-e0dd-11e7-9661-59e4fb4a8347.png">
+<img src =“https://user-images.githubusercontent.com/34459978/34018008-0451ef9a-e0dd-11e7-9661-59e4fb4a8347.png”>
 
-To run an audio file through the trained model (e.g. a DNN) and get top prediction, 
-run:
+要通过训练模型（例如DNN）运行音频文件并获得最高预测，
+跑：
 ```
-python label_wav.py --wav <audio file> --graph Pretrained_models/DNN/DNN_S.pb 
---labels Pretrained_models/labels.txt --how_many_labels 1
+python label_wav.py --wav <audio file> --graph Pretrained_models / DNN / DNN_S.pb
+--labels Pretrained_models / labels.txt --how_many_labels 1
 ```
 
-## Quantization Guide and Deployment on Microcontrollers
+##微控制器的量化指南和部署
 
-A quick guide on quantizing the KWS neural network models is [here](Deployment/Quant_guide.md). 
-The example code for running a DNN model on a Cortex-M development board is also provided [here](Deployment). 
+关于量化KWS神经网络模型的快速指南是[这里]（部署/ Quant_guide.md）。
+在[此处] [部署]中还提供了在Cortex-M开发板上运行DNN模型的示例代码。
