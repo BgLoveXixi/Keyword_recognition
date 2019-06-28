@@ -6,7 +6,7 @@
 这些脚本改编自[Tensorflow示例]（https://github.com/tensorflow/tensorflow/tree/master/tensorflow/examples/speech_commands）
 为了使这些脚本自成一体，这里重复了一些。
 
-要训​​练具有3个完全连接层的DNN，每层有128个神经元，请运行：
+要训练具有3个完全连接层的DNN，每层有128个神经元，请运行：
 
 ```
 python train.py --model_architecture dnn --model_size_info 128 128 128
@@ -23,10 +23,10 @@ python train.py --model_architecture dnn --model_size_info 128 128 128
 要从train / val / test set上的检查点对训练模型进行推断，请运行：
 ```
 python test.py --model_architecture dnn --model_size_info 128 128 128 --checkpoint
-<检查点路径>
+<checkpoint path>
 ```
 
-要将经过训练的模型检查点冻结到.pb文件中，请运行：
+要将训练好的的模型检查点冻结到.pb文件中，请运行：
 ```
 python freeze.py --model_architecture dnn --model_size_info 128 128 128 --checkpoint
 <checkpoint path> --output_file dnn.pb
@@ -38,13 +38,11 @@ python freeze.py --model_architecture dnn --model_size_info 128 128 128 --checkp
 CNN，基本LSTM，LSTM，GRU，CRNN和DS-CNN如图所示
 这[arXiv paper]（https://arxiv.org/pdf/1711.07128.pdf）已添加进来
 [Pretrained_models]（Pretrained_models）。验证集上模型的准确性，
-他们的内存需求和每个推理的操作也总结在
-下表。
+他们的内存需求和每个推理的操作也总结在下表。
 
 <img src =“https://user-images.githubusercontent.com/34459978/34018008-0451ef9a-e0dd-11e7-9661-59e4fb4a8347.png”>
 
-要通过训练模型（例如DNN）运行音频文件并获得最高预测，
-跑：
+要通过训练模型（例如DNN）运行音频文件并获得最高预测，请运行：
 ```
 python label_wav.py --wav <audio file> --graph Pretrained_models / DNN / DNN_S.pb
 --labels Pretrained_models / labels.txt --how_many_labels 1
