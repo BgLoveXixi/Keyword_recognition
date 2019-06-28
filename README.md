@@ -1,4 +1,4 @@
-######微控制器的关键字识别
+# 微控制器的关键字识别
 
 该存储库包含使用的tensorflow模型和训练脚本
 在论文中：
@@ -32,7 +32,7 @@ python freeze.py --model_architecture dnn --model_size_info 128 128 128 --checkp
 <checkpoint path> --output_file dnn.pb
 ```
 
-#########预训练模型
+## 预训练模型
 
 针对不同神经网络架构（如DNN）的训练模型（.pb文件），
 CNN，基本LSTM，LSTM，GRU，CRNN和DS-CNN如图所示
@@ -48,7 +48,7 @@ python label_wav.py --wav <audio file> --graph Pretrained_models / DNN / DNN_S.p
 --labels Pretrained_models / labels.txt --how_many_labels 1
 ```
 
-###########微控制器的量化指南和部署
+## 微控制器的量化指南和部署
 
 关于量化KWS神经网络模型的快速指南是[Deployment/ Quant_guide.md）
 在[Deployment]中还提供了在Cortex-M开发板上运行DNN模型的示例代码。
